@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform bool see_all = false;
+uniform bool see_colorll = false;
 
 uniform vec2 positions[1024];
 uniform float radars[1024]; // range = this/radar_falloff
@@ -10,11 +10,11 @@ uniform int array_length = 0;
 uniform float radar_falloff = 0;
 
 
-const float visual_a = 0.6;  
-const float high_radar_a = 0.5;
-const float medium_radar_a = 0.45;
-const float low_radar_a = 0.4;
-const float no_detection_a = 0.3;
+const vec3 visual_color = vec3(0.67, 0.67, 0.6);  
+const vec3 high_radar_color = vec3(0.57, 0.57, 0.5);  
+const vec3 medium_radar_color = vec3(0.45, 0.45, 0.45);  
+const vec3 low_radar_color = vec3(0.45, 0.45, 0.45);  
+const vec3 no_detection_color = vec3(0.3, 0.3, 0.3);  
 
 
 
@@ -30,7 +30,7 @@ void vertex(){
 void fragment(){
 	float strength = 0.0;
 	bool visual = false;
-	if(see_all){
+	if(see_colorll){
 		visual = true;
 	}else{
 		for(int i = 0; (i < array_length) && (!visual); i += 1){
@@ -45,15 +45,10 @@ void fragment(){
 			}
 		}
 	}
-	if (visual){
-		COLOR.rgb = vec3(visual_a, visual_a, visual_a);
-	}else if(strength >= 1.0){
-		COLOR.rgb = vec3(high_radar_a, high_radar_a, high_radar_a);
-	}else if(strength >= 0.5){
-		COLOR.rgb = vec3(medium_radar_a, medium_radar_a, medium_radar_a);
-	}else if(strength > 0.0){
-		COLOR.rgb = vec3(low_radar_a, low_radar_a, low_radar_a);
-	}else{
-		COLOR.rgb = vec3(no_detection_a, no_detection_a, no_detection_a);
-	}
+	COLOR.rgb = 
+		visual ? visual_color :
+		(strength >= 1.0 ? high_radar_color : 
+		(strength >= 0.5 ? medium_radar_color :
+		(strength > 0.0 ? low_radar_color :
+		no_detection_color)));
 }

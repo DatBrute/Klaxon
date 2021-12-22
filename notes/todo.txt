@@ -1,12 +1,15 @@
 TODO:	
 Ewar currently unused, should affects radar/jam, multiplicatively
-Defensive jamming reworked to only modify duration.
 Possible un-discretizing radar; use blurring for edges.
 Targeting classes in addition to ammo classes, to allow for anti-radar dmg
 Ammo bar, gun costs
 Gun inaccuracy/rotation
 Doubled fuel consumption above certain speed
 Manual/forced decel
+
+Defensive jamming reworked to only modify duration, 
+	probably meaning it can only increase to the cap and doesn't affect automate tracking loss.
+	Probably strength-based slow tracking loss.
 
 Tracking indicator so you know when enemy is about to be undetected
 Predictive firing (including ranges)
