@@ -278,7 +278,6 @@ animations = [{
 
 [node name="Bomb" instance=ExtResource( "1_uw573" )]
 controller = 1
-collision_line_width = 2.0
 draw_explosion_prediction = true
 explosion_prediction_ring_width = 5.0
 max_fuel = 50.0

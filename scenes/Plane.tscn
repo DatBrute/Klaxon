@@ -17,6 +17,8 @@ _power_curve = [[0, -1.0], [250, 4.0], [500, 3.0], [1000, 0.2]]
 visual_range = 100.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+modulate = Color(0.984314, 1, 1, 1)
 polygon = PackedVector2Array(-50, 50, -50, -50, 50, 0)
 
 [node name="ExplosionArea" type="Area2D" parent="."]

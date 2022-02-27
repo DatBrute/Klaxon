@@ -47,10 +47,10 @@ func set_target_collision_tags(x):
 		$ExplosionArea.set_collision_mask_value(tag, tag in x)
 	target_collision_tags = x
 
-@export var collision_line_color = Color.RED
-@export var collision_line_width = 1.0
-@export var _collision_poly_color = Color(1, 0, 0, 0.25)
-var collision_poly_color = PackedColorArray([_collision_poly_color])
+#@export var collision_line_color = Color.RED
+#@export var collision_line_width = 1.0
+#@export var _collision_poly_color = Color(1, 0, 0, 0.25)
+#var collision_poly_color = PackedColorArray([_collision_poly_color])
 @export var trail_length = 0
 @export var  trail_width = 0
 @export var trail_color = Color.GRAY

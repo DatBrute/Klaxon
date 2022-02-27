@@ -2,9 +2,9 @@
 # used for managing speed, turnrate, and other turn-related derived values
 
 var speed : float
-var r_rate # radians per second, 0 = does not turn
-var r_time  # time to 360, -1 = does not turn
-var r_radius
+var r_rate : float # radians per second, 0 = does not turn
+var r_time : float # time to 360, -1 = does not turn
+var r_radius : float
 var r_circumference : float
 
 

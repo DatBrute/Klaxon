@@ -21,8 +21,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_soewb"]
 shader = ExtResource( "12_u5foi" )
 shader_param/radars = null
-shader_param/positions = null
 shader_param/visuals = null
+shader_param/positions = null
 shader_param/global_transform = null
 shader_param/radar_falloff = null
 shader_param/see_colorll = null
@@ -35,6 +35,9 @@ script = ExtResource( "3" )
 [node name="Units" type="Node" parent="."]
 
 [node name="Player" parent="Units" instance=ExtResource( "4" )]
+trail_length = 200
+trail_width = 5
+trail_color = Color(0.74902, 0, 0.647059, 1)
 visual_range = 100.5
 evasive_r_rate_cap = 90.0
 radar_strength = 1.5
@@ -52,7 +55,6 @@ texture = ExtResource( "5_7esg7" )
 [node name="Enemy" parent="Units" instance=ExtResource( "4" )]
 position = Vector2(594, 13)
 controller = 1
-collision_line_color = Color(0, 0.905882, 1, 1)
 explosion_prediction_circle_color = Color(0, 0, 1, 0.25098)
 speed = 100
 visual_range = 100.5
@@ -67,7 +69,6 @@ texture = ExtResource( "5_7esg7" )
 [node name="Enemy2" parent="Units" instance=ExtResource( "4" )]
 position = Vector2(73, 156)
 controller = 1
-collision_line_color = Color(0, 0.905882, 1, 1)
 explosion_prediction_circle_color = Color(0, 0, 1, 0.25098)
 visual_range = 100.5
 evasive_r_rate_cap = 90.0
