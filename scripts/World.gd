@@ -1,3 +1,5 @@
+# Node responsible for some camera functions and the CLI
+
 extends Node2D
 
 const ZOOM_SPEED = 50

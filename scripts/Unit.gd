@@ -1,16 +1,22 @@
+# monolith for all game objects, ctrl-f for "## SECTION"
+
 extends CharacterBody2D
+
+## SECTION DEFINITIONS
 
 # in thise node specifically set on _enter_tree(), which is before _ready() and before all nodes are in the tree
 # this way it can be used onready
 var G 
 const PCE = preload("nodeless/PowerCurveEntry.gd")
 
-##testasdfasdfsd
 @export var team = 0
+func get_enemy_team():
+	return 0 if team == 1 else 1
 
 enum Controller {PLAYER = 0, DUMB = 1, PURSUE_NEAREST = 1001, PURSUE_PLAYER = 1002}
 @export var controller : Controller = Controller.DUMB
 var is_player # set on _enter_tree(), which is before _ready() and before all nodes are in the tree
+
 func set_controller(x):
 	controller = x
 	is_player = x == Controller.PLAYER
@@ -111,6 +117,9 @@ var evasive_action = true
 
 var is_ammo # set on ready
 var auto_groups = ["Unit"]
+
+
+## SECTION BUILT-IN
 
 func _enter_tree():
 	G = $"/root/Globals"
@@ -231,13 +240,6 @@ func _physics_process(delta):
 func _process(_delta):
 	update()
 
-func get_enemy_team():
-	return 0 if team == 1 else 1
-
-func is_visible_by_team(vision_team):
-	return true if (vision_team == team or vision_team == -1 or is_decoy) \
-		else (self in G.visible_units[vision_team])
-
 func _draw():
 	if not is_visible_by_team(G.client_vision_team):
 		return
@@ -280,9 +282,7 @@ func _input(event):
 	if event.is_action_pressed("r_click"):
 		_target = get_global_mouse_position() - global_position
 
-func _on_DeathAnim_animation_finished():
-	queue_free()
-	
+## SECTION MOVEMENT
 
 func max_speed():
 	var pc = power_curve if evasive_action else capped_power_curve
@@ -316,6 +316,8 @@ func get_orbit(_roll = G.roll_to_int(roll)) -> Vector2:
 func calc_orbit_radius(_roll = G.roll_to_int(roll)):
 	return abs(pce.r_radius * _roll)
 
+## SECTION DEATH
+
 func die(explode = true):
 	if controller == Controller.PLAYER:
 		$"../UI/BottomText".text = "You are dead."
@@ -345,12 +347,20 @@ func die(explode = true):
 		queue_free()
 	
 
+# targets in range of the explosion triggering on unit's death
 func targets_in_explosion_range():
 	var ret = $ExplosionArea.get_overlapping_bodies() 
 	var x = ret.find(self)
 	if(x != -1):
 		ret.remove(x)
 	return ret
+
+func _on_DeathAnim_animation_finished():
+	queue_free()
+	
+
+
+## SECTION VISION
 
 func update_tracked_enemies(delta):
 	for enemy in tracked_enemies:
@@ -377,6 +387,12 @@ func chance_to_see(enemy, delta):
 	var strength = clamp((radar_strength - (dist * G.radar_falloff)), 0.0, 1.0)
 	return G.MTTH_to_chance(lerp(G.max_radar_MTTH, G.min_radar_MTTH, strength), delta)
 	
+func is_visible_by_team(vision_team):
+	return true if (vision_team == team or vision_team == -1 or is_decoy) \
+		else (self in G.visible_units[vision_team])
+	
+
+## SECTION AI
 
 # used for calculating circular movement and not just prediction for the user
 # list of locals: speed, global_position

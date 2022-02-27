@@ -1,3 +1,5 @@
+# used solely for the vision shader
+
 extends ColorRect
 @onready var G = $"/root/Globals"
 var positions = [];

@@ -1,3 +1,6 @@
+# child node of a unit, which activates on command or under AI triggers
+# the activation behavior is always to spawn one or more units
+
 extends Node2D
 
 @onready var G = $"/root/Globals"
@@ -25,10 +28,12 @@ var full_burst : bool = false
 
 func _ready():
 	
-	assert (not (single_click_for_full_burst and max_ammo == -1), "A single click firing a burst of infinite length is... less than ideal...")	
+	assert (not (single_click_for_full_burst and max_ammo == -1), \
+		"A single click firing a burst of infinite length is... less than ideal...")	
 	assert(get_child_count() == 1, "Guns must have exactly one child.")
 	var child = get_child(0)
-	assert(child is InstancePlaceholder, "The child of a Gun should be an InstancePlaceholder of the Unit class. Right-click -> Load as Placeholder.")
+	assert(child is InstancePlaceholder, \
+		"The child of a Gun should be an InstancePlaceholder of the Unit class. Right-click -> Load as Placeholder.")
 	child.team = get_parent().team
 
 func _physics_process(delta):

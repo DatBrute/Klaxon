@@ -1,5 +1,5 @@
 TODO:	
-Ewar currently unused, should affects radar/jam, multiplicatively
+Ewar currently unused, should affect radar/jam, multiplicatively
 Possible un-discretizing radar; use blurring for edges.
 Targeting classes in addition to ammo classes, to allow for anti-radar dmg
 Ammo bar, gun costs
@@ -26,3 +26,32 @@ Independent Vision
 Pings/refresh
 Power curve displayer
 Turrets as leech units.
+
+[BEGIN FROM UNITY]
+ECS
+Partial turning to solve jitter
+
+Concerning the new ideas of open world and time travel:
+
+Probably the only things that would need too be tracked are land unit bars.
+
+Strategic positioning algorithms may want to have AI goals such as "have a majority of forces at victory points". Otherwise the way it "should look" is too questionable.
+But regardless, tactical positioning is a very different thing, on the scale of a mission it really just needs to be re-randomized with units near the units they are trying to protect.
+So something like this algorithm would work:
+	Select random unit from weighted list
+	Select random position
+	Cancel if unit is near enough to other required units (optionally with a random chance to infrease the distance or ignore the criteria)
+	Place unit and adjust weighting in order to encourage/discourage specialization (the math of this needs to be studied; what does a weighting of A=2 and B=5-1x tend to result in?)
+Or select position first, it depends
+
+Clearly ground unt locations should be located before the game starts, with a chance to have a false positive or ID the ground unit. Certain ground units would never start located though.
+If a ground unit fires a missile, does that give away what unit type it is / where it is?
+Ground recon should be different than air recon, since the former is permanent.
+
+[END FROM UNITY]
+
+RECON IDEA:
+Ground is permanently reconned. There's also an argument to make for camera locking so that only direction, not distance, is clear.
+For both ground and air, there is a detection value that ticks up. Detect at 50%, undetect at 0%. Represented by circle around target.
+Can set a note on the map "probably an enemy here"
+

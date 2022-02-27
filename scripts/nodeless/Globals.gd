@@ -1,3 +1,5 @@
+# global variables which all units need access to
+
 extends Node
 
 const ewar_regen_mult = 1.0
@@ -37,9 +39,10 @@ func get_visible_units(team = client_vision_team):
 						ret.append(enemy)
 	return ret
 
-# MTTH = Mean Time To Happen, a term from Paradox.
-func MTTH_to_chance(time, delta):
-	return 1 / (time / delta)
+# MTTH = Mean Time To Happen, a term from Paradox. 
+# returns chance per tick as a decimal between 0 and 1
+func MTTH_to_chance(mtth, delta):
+	return 1 / (mtth / delta)
 
 func _ready():
 	process_priority = -100

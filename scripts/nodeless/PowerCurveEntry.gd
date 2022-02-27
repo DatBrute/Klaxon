@@ -1,3 +1,6 @@
+# script which defines the PowerCurveEntry data object
+# used for managing speed, turnrate, and other turn-related derived values
+
 var speed : float
 var r_rate # radians per second, 0 = does not turn
 var r_time  # time to 360, -1 = does not turn
