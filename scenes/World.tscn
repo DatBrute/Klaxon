@@ -20,34 +20,36 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_soewb"]
 shader = ExtResource( "12_u5foi" )
-shader_param/visuals = null
-shader_param/positions = null
 shader_param/radars = null
+shader_param/positions = null
+shader_param/visuals = null
 shader_param/global_transform = null
 shader_param/radar_falloff = null
-shader_param/array_length = null
 shader_param/see_colorll = null
+shader_param/array_length = null
 
 [node name="World" type="Node2D"]
 light_mask = 2
 script = ExtResource( "3" )
 
-[node name="Player" parent="." instance=ExtResource( "4" )]
+[node name="Units" type="Node" parent="."]
+
+[node name="Player" parent="Units" instance=ExtResource( "4" )]
 visual_range = 100.5
 evasive_r_rate_cap = 90.0
 radar_strength = 1.5
 
-[node name="PlayerCamera" type="Camera2D" parent="Player"]
+[node name="PlayerCamera" type="Camera2D" parent="Units/Player"]
 script = ExtResource( "1" )
 
-[node name="Gun" parent="Player" instance=ExtResource( "5" )]
+[node name="Gun" parent="Units/Player" instance=ExtResource( "5" )]
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
+[node name="Sprite2D" type="Sprite2D" parent="Units/Player"]
 rotation = 1.5708
 scale = Vector2(3, 3)
 texture = ExtResource( "5_7esg7" )
 
-[node name="Enemy" parent="." instance=ExtResource( "4" )]
+[node name="Enemy" parent="Units" instance=ExtResource( "4" )]
 position = Vector2(594, 13)
 controller = 1
 collision_line_color = Color(0, 0.905882, 1, 1)
@@ -57,12 +59,12 @@ visual_range = 100.5
 evasive_r_rate_cap = 90.0
 radar_strength = 1.5
 
-[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
+[node name="Sprite2D" type="Sprite2D" parent="Units/Enemy"]
 rotation = 1.5708
 scale = Vector2(3, 3)
 texture = ExtResource( "5_7esg7" )
 
-[node name="Enemy2" parent="." instance=ExtResource( "4" )]
+[node name="Enemy2" parent="Units" instance=ExtResource( "4" )]
 position = Vector2(73, 156)
 controller = 1
 collision_line_color = Color(0, 0.905882, 1, 1)
@@ -71,7 +73,7 @@ visual_range = 100.5
 evasive_r_rate_cap = 90.0
 radar_strength = 1.5
 
-[node name="Sprite2D" type="Sprite2D" parent="Enemy2"]
+[node name="Sprite2D" type="Sprite2D" parent="Units/Enemy2"]
 rotation = 1.5708
 scale = Vector2(3, 3)
 texture = ExtResource( "5_7esg7" )
@@ -89,6 +91,7 @@ anchor_bottom = 1.0
 offset_left = 200.0
 offset_top = -30.0
 offset_right = 800.0
+theme_override_font_sizes/font_size = 16
 text = "Bottom Text"
 clip_text = true
 __meta__ = {

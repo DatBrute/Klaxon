@@ -147,7 +147,8 @@ func _ready():
 	if get_parent() == get_tree().get_root():
 		is_ammo = false
 	else:
-		is_ammo = get_parent().get_script().get_path().get_file() == "Gun.gd"
+		var script = get_parent().get_script()
+		is_ammo = script != null and script.get_path().get_file() == "Gun.gd"
 	if(is_ammo):
 		assert(get_parent().get_parent().team == team, "A gun fires a projectile of a different team.")
 	for group in auto_groups:
@@ -156,7 +157,7 @@ func _ready():
 func _physics_process(delta):
 	match(controller):
 		Controller.PLAYER:
-			if !$"../".cli_activated:
+			if !$"/root/World".cli_activated:
 				if Input.is_action_just_pressed('evasive_action_toggle'):
 					evasive_action = not evasive_action
 				if Input.is_action_pressed('accelerate'):
@@ -231,7 +232,7 @@ func _physics_process(delta):
 	
 	if(controller == Controller.PLAYER):
 		var time_string = "none" if pce.r_time < 0 else "%.1f" % pce.r_time
-		$"../UI/BottomText".text = \
+		$"/root/World/UI/BottomText".text = \
 			("speed: %.0f time: %s radius: %.0f, deg/sec: %.0f%s" % \
 			[speed, time_string, pce.r_radius, rad2deg(pce.r_rate), ", E" if evasive_action else ""])	
 		
@@ -320,7 +321,7 @@ func calc_orbit_radius(_roll = G.roll_to_int(roll)):
 
 func die(explode = true):
 	if controller == Controller.PLAYER:
-		$"../UI/BottomText".text = "You are dead."
+		$"/root/World/UI/BottomText".text = "You are dead."
 	if explode:
 		var targets = targets_in_explosion_range()
 		print("%s is exploding, " % self
@@ -414,6 +415,7 @@ func calculate_movement(delta, _roll = self.roll):
 				roll = 0 # infinite turn time
 			else:
 				_roll = get_angle_to(get_target_pos()) / (pce.r_rate * delta)
+				print(get_angle_to(get_target_pos()))
 				if _roll > 1: 
 					_roll = 1
 				elif _roll < -1: 
