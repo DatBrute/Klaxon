@@ -21,7 +21,7 @@ func set_controller(x):
 	controller = x
 	is_player = x == Controller.PLAYER
 	if(is_player):
-		assert(G.players[team] == null or G.players[team] == self, "Player isn't set in the player array")
+		assert(G.players[team] == null or G.players[team] == self, "The player unit must not be changed")
 		G.players[team] = self
 		$"/root/World/UI/Bars".set_unit(self)
 
@@ -150,7 +150,7 @@ func _ready():
 		var script = get_parent().get_script()
 		is_ammo = script != null and script.get_path().get_file() == "Gun.gd"
 	if(is_ammo):
-		assert(get_parent().get_parent().team == team, "A gun fires a projectile of a different team.")
+		assert(get_parent().get_parent().team == team, "Guns must not fire units of different teams.")
 	for group in auto_groups:
 		add_to_group(group)
 
@@ -202,7 +202,7 @@ func _physics_process(delta):
 			_target = nearest
 		Controller.PURSUE_PLAYER:
 			_target = G.players[get_enemy_team()]
-			assert(_target != null, "Could not find player on an enemy team.")
+			assert(_target != null, "There must be units on the enemy team.")
 			roll = G.Roll.GUIDED
 	
 	if(evasive_action):
@@ -219,7 +219,7 @@ func _physics_process(delta):
 	
 	if(max_fuel >= 0):
 		fuel = fuel - min(speed*delta, fuel)
-		assert(fuel >= 0, "remaining range is less than 0")
+		assert(fuel >= 0, "Remaining fuel must be positive at all times")
 		if fuel == 0 or (targets_in_explosion_range().size() > 0 and auto_detonate):
 			die(auto_detonate)
 			return

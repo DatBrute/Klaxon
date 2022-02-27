@@ -33,7 +33,7 @@ func _zoom(i, c):
 
 func _process(delta):
 	var c = G.current_camera
-	assert(c != null, "G has no current camera.")
+	assert(c != null, "G must have a current camera.")
 	if(c):
 		camera_input(delta, c)
 
@@ -46,7 +46,7 @@ func _input(event):
 			G.player_camera.current = true
 			G.player_camera.zoom = G.current_camera.zoom
 		else:
-			assert(G.current_camera == G.player_camera, "Current_camera should be player_camera but is not.")
+			assert(G.current_camera == G.player_camera, "Current_camera must be player_camera but is not.")
 			G.free_camera.current = true
 			G.free_camera.global_position = G.current_camera.global_position
 			G.free_camera.zoom = G.current_camera.zoom

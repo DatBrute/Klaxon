@@ -29,7 +29,7 @@ func _process(_delta):
 			radars[i] = units[array_length].radar_strength
 			visuals[i] = units[array_length].visual_range
 			array_length += 1
-			assert(array_length < 1025, "More than 1024 units on a team is not supported due to a possible shader limitation")
+			assert(array_length < 1025, "There must not be more than 1024 units on a team due to shader limitation")
 	material.set_shader_param("see_all", false)
 	material.set_shader_param ("positions", positions)
 	material.set_shader_param ("radars", radars)
