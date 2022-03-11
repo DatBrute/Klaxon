@@ -282,7 +282,6 @@ draw_explosion_prediction = true
 explosion_prediction_ring_width = 5.0
 max_fuel = 50.0
 explosion_radius = 100
-speed = 100
 
 [node name="CollisionPolygon2D" parent="." index="0"]
 polygon = PackedVector2Array(-25, 50, -25, -50, 25, 0)

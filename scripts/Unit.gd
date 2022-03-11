@@ -28,7 +28,7 @@ func set_controller(x):
 
 # may be position node or vector, use get_target_pos() to access position/node as position
 # set on _ready()
-var _target = null
+var target = null
 
 func is_pursuit():
 	return controller in [Controller.PURSUE_NEAREST, Controller.PURSUE_PLAYER]
@@ -93,7 +93,12 @@ var pce : PCE # current speed and turn data
 var course_altered = false
 
 
-@onready var roll = G.Roll.STRAIGHT
+var roll = 0.0
+var guided = false
+func guide(to_guided, to_target = null):
+	guided = to_guided
+	target = to_target
+	roll = 0
 var trail = []
 
 
@@ -119,7 +124,7 @@ var is_ammo # set on ready
 var auto_groups = ["Unit"]
 
 
-## SECTION BUILT-IN
+## SECTION OVERRIDES
 
 func _enter_tree():
 	G = $"/root/Globals"
@@ -157,36 +162,33 @@ func _ready():
 func _physics_process(delta):
 	match(controller):
 		Controller.PLAYER:
+			guide(false)
 			if !$"/root/World".cli_activated:
 				if Input.is_action_just_pressed('evasive_action_toggle'):
 					evasive_action = not evasive_action
 				if Input.is_action_pressed('accelerate'):
 					set_speed(speed + acceleration * delta)
 					course_altered = true
-					_target = null
+					target = null
 				elif Input.is_action_pressed('decelerate'):
 					set_speed(speed - deceleration * delta)
 					course_altered = true
-					_target = null
+					target = null
 				elif Input.is_action_just_pressed('evasive_action_toggle'):
 					set_speed(speed)
 				if Input.is_action_pressed('turn_left'):
-					roll = G.Roll.LEFT
+					roll = -1.0
 					course_altered = true
-					_target = null
+					target = null
 				elif Input.is_action_pressed('turn_right'):
-					roll = G.Roll.RIGHT
+					roll = 1.0
 					course_altered = true
-					_target = null
-				elif get_target_pos() != null:
-					roll = G.Roll.GUIDED
+					target = null
 				else:
-					roll = G.Roll.STRAIGHT
-			
+					roll = 0.0
 		Controller.DUMB:
-			pass
+			guide(false)
 		Controller.PURSUE_NEAREST:
-			roll = G.Roll.GUIDED
 			var nearest = null
 			var nearest_dist = null
 			for unit in get_tree().get_nodes_in_group('Unit'):
@@ -199,12 +201,10 @@ func _physics_process(delta):
 						if (dist < nearest_dist):
 							nearest = unit
 							nearest_dist = dist
-			_target = nearest
+			guide(true, nearest)
 		Controller.PURSUE_PLAYER:
-			_target = G.players[get_enemy_team()]
-			assert(_target != null, "There must be units on the enemy team.")
-			roll = G.Roll.GUIDED
-	
+			guide(true, G.players[get_enemy_team()])
+
 	if(evasive_action):
 		ewar = max(ewar - delta, 0)
 	else:
@@ -256,8 +256,8 @@ func _draw():
 			pass
 		draw_polyline(trail_draw, trail_color, trail_width)
 
-	if(roll in [G.Roll.LEFT, G.Roll.RIGHT] and pce.r_radius > 0 and orbit_size > 0):
-		draw_circle(get_orbit(G.roll_to_int(roll)), orbit_size, orbit_color)
+	if(roll != null and roll != 0 and pce.r_radius > 0 and orbit_size > 0):
+		draw_circle(get_orbit(roll), orbit_size, orbit_color)
 	
 	if(draw_explosion_prediction and (not dying) and (speed != 0) and (max_fuel > 0.0)):
 			var explosion_prediction_pos = to_local(calculate_movement(fuel/speed)[0])
@@ -278,10 +278,11 @@ func _draw():
 	
 
 func _input(event):
-	if event.is_action_pressed("l_click"):
-		_target = get_global_mouse_position()
-	if event.is_action_pressed("r_click"):
-		_target = get_global_mouse_position() - global_position
+	if(controller == Controller.PLAYER):
+		if event.is_action_pressed("l_click"):
+			target = get_global_mouse_position()
+		if event.is_action_pressed("r_click"):
+			target = get_global_mouse_position() - global_position
 
 ## SECTION MOVEMENT
 
@@ -311,10 +312,10 @@ func set_speed(x):
 	
 
 # the point that this unit will orbit around if untouched
-func get_orbit(_roll = G.roll_to_int(roll)) -> Vector2:
+func get_orbit(_roll = roll) -> Vector2:
 	return Vector2(0, calc_orbit_radius(_roll) * (-1 if _roll < 1 else 1))
 
-func calc_orbit_radius(_roll = G.roll_to_int(roll)):
+func calc_orbit_radius(_roll = roll):
 	return abs(pce.r_radius * _roll)
 
 ## SECTION DEATH
@@ -337,7 +338,6 @@ func die(explode = true):
 		death.visible = true
 		death.playing = true
 		dying = true
-		$Masks.visible = false
 		if(sprite != null):
 			sprite.visible = false
 		for x in collision_tags:
@@ -400,42 +400,27 @@ func is_visible_by_team(vision_team):
 # list of vars: delta, roll
 # list of var-derived: fuel, orbit_radius, orbit
 # returns [final global position, rotation]
-func calculate_movement(delta, _roll = self.roll):
-	if _roll == G.Roll.LEFT:
-			_roll = -1
-	elif _roll == G.Roll.STRAIGHT:
-			_roll = 0
-	elif _roll == G.Roll.RIGHT:
-			_roll = 1
-	elif _roll == G.Roll.GUIDED:
-		if(_target == null):
-			_roll = 0
-		else:
-			if(pce.r_rate == 0):
-				roll = 0 # infinite turn time
-			else:
-				_roll = get_angle_to(get_target_pos()) / (pce.r_rate * delta)
-				print(get_angle_to(get_target_pos()))
-				if _roll > 1: 
-					_roll = 1
-				elif _roll < -1: 
-					_roll = -1
-				else: 
-						_roll = 0 # no less than frame turning
+func calculate_movement(delta):
+	var move = speed*delta if max_fuel < 0 else min(fuel, speed*delta)
+	if (!guided and roll == 0) or pce.r_rate == 0:
+		return [global_position + Vector2(move, 0.0).rotated(rotation), 0.0]
+	if guided:
+		roll = clamp(get_angle_to(get_target_pos()) / (pce.r_rate * delta), -1, 1)
 	var r_rate = pce.r_rate
-	var rot = r_rate * _roll * delta if pce.r_rate > 0.0 else 0.0
-	var move = speed*delta if max_fuel < 0 else min(fuel, speed*delta) 
-	var orbit_radius = calc_orbit_radius(_roll) if _roll != 0 else -1
-	if (speed != 0 and orbit_radius != -1 and orbit_radius <= 10000):
-		var orbit = to_global(get_orbit(_roll))
-		var angle_add = 2.0 * PI * _roll * move / pce.r_circumference
-		var current_angle = (global_position-orbit).angle()
+	var rot = r_rate * roll * delta
+	var orbit_radius = calc_orbit_radius(roll)
+	if speed != 0 and roll == 1 or roll == -1:
+		print(orbit_radius)
+		var orbit = to_global(get_orbit(roll))
+		var angle_add = 2.0 * PI * roll * move / pce.r_circumference
+		print(angle_add)
+		var current_angle = (global_position - orbit).angle()
 #		var current_pos = orbit + Vector2.RIGHT.rotated(current_angle) * orbit_radius
 		var final_angle = current_angle + angle_add
 		var final_pos = orbit + Vector2.RIGHT.rotated(final_angle) * orbit_radius
 		return [final_pos, rot]	
 	else:
-		return [global_position + Vector2(move, 0).rotated(rotation), rot]
+		return [global_position + Vector2(move, 0.0).rotated(rotation), rot]
 
 func get_target_pos():
-	return _target.global_position if _target is Node else _target
+	return target.global_position if target is Node else target

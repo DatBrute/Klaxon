@@ -7,4 +7,5 @@ position = Vector2(-100, 0)
 script = ExtResource( "3" )
 
 [node name="Bomb" parent="." instance_placeholder="res://scenes/Bomb.tscn"]
+speed = 0
 visual_range = 0.0
