@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/Unit.gd" id="1_rqohu"]
 
 [sub_resource type="CircleShape2D" id="1"]
+resource_local_to_scene = true
 radius = 0.0
 
 [node name="Plane" type="CharacterBody2D"]
