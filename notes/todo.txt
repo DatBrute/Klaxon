@@ -55,3 +55,13 @@ Ground is permanently reconned. There's also an argument to make for camera lock
 For both ground and air, there is a detection value that ticks up. Detect at 50%, undetect at 0%. Represented by circle around target.
 Can set a note on the map "probably an enemy here"
 
+
+
+[6/20/22, returning and trying to clarify and simplify to finish off an arcade version]
+
+Nodes have:Tree of nodes, expandable list
+Nodes have victory conditions e.g. 2/5 means you can attack this node after 2/5 children defeated
+Defeating a node defeats all children, so defeating the top node wins you the game 
+Nodes have fixed coords or parent relative position plus some randomization from it
+Nodes can have multiples for brevity sake, but intially this is leaf-only for UI reasons
+Nodes can have chances to be units, but initially this is leaf-only for UI reasons
