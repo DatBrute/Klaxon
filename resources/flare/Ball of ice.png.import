@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
-uid="uid://blnjbp1upxp4d"
-path="res://.godot/imported/Ball of ice.png-4513f1cca57403511a1b9d7295ebc1df.stex"
+type="CompressedTexture2D"
+uid="uid://da585xlg5l12g"
+path="res://.godot/imported/Ball of ice.png-4513f1cca57403511a1b9d7295ebc1df.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://resources/flare/Ball of ice.png"
-dest_files=["res://.godot/imported/Ball of ice.png-4513f1cca57403511a1b9d7295ebc1df.stex"]
+dest_files=["res://.godot/imported/Ball of ice.png-4513f1cca57403511a1b9d7295ebc1df.ctex"]
 
 [params]
 
@@ -21,7 +21,6 @@ compress/hdr_compression=1
 compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
-compress/streamed=false
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
@@ -29,7 +28,7 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0

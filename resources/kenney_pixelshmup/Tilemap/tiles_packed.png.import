@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
-uid="uid://cpgwxs6lfcdn7"
-path="res://.godot/imported/tiles_packed.png-0856c541112980874158b5c85e1a0390.stex"
+type="CompressedTexture2D"
+uid="uid://xat3mtfv5hf3"
+path="res://.godot/imported/tiles_packed.png-0856c541112980874158b5c85e1a0390.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://resources/kenney_pixelshmup/Tilemap/tiles_packed.png"
-dest_files=["res://.godot/imported/tiles_packed.png-0856c541112980874158b5c85e1a0390.stex"]
+dest_files=["res://.godot/imported/tiles_packed.png-0856c541112980874158b5c85e1a0390.ctex"]
 
 [params]
 
@@ -21,7 +21,6 @@ compress/hdr_compression=1
 compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
-compress/streamed=false
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
@@ -29,7 +28,7 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0

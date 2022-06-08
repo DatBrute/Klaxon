@@ -5,28 +5,28 @@
 [ext_resource type="Script" path="res://scripts/World.gd" id="3"]
 [ext_resource type="PackedScene" uid="uid://cq5p8uil717wb" path="res://scenes/Plane.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://d0bb4rhq3ak6t" path="res://scenes/Gun.tscn" id="5"]
-[ext_resource type="Texture2D" uid="uid://bj6rpf1csgor7" path="res://resources/kenney_pixelshmup/Ships/ship_0000.png" id="5_7esg7"]
-[ext_resource type="Texture2D" uid="uid://w8lfdwpfaw8e" path="res://resources/gui/energy_bar_bg.png" id="6_1eth7"]
+[ext_resource type="Texture2D" uid="uid://bgcsycc4k5718" path="res://resources/kenney_pixelshmup/Ships/ship_0000.png" id="5_7esg7"]
+[ext_resource type="Texture2D" uid="uid://bu87y8sj3pdh4" path="res://resources/gui/energy_bar_bg.png" id="6_1eth7"]
 [ext_resource type="Script" path="res://scripts/Bars.gd" id="6_onlvc"]
-[ext_resource type="Texture2D" uid="uid://d3c33dljuk6t2" path="res://resources/gui/energy_bar_green.png" id="7_x0y7u"]
-[ext_resource type="Texture2D" uid="uid://lacd8xnhd2fr" path="res://resources/gui/energy_bar_azure.png" id="8_75t2l"]
-[ext_resource type="Texture2D" uid="uid://s1n5mxk2wtfu" path="res://resources/gui/energy_bar_brown.png" id="9_4pcll"]
+[ext_resource type="Texture2D" uid="uid://chj47p2kjs5su" path="res://resources/gui/energy_bar_green.png" id="7_x0y7u"]
+[ext_resource type="Texture2D" uid="uid://j7b5lu4bo5n" path="res://resources/gui/energy_bar_azure.png" id="8_75t2l"]
+[ext_resource type="Texture2D" uid="uid://db3sxsyrdqqb6" path="res://resources/gui/energy_bar_brown.png" id="9_4pcll"]
 [ext_resource type="Shader" path="res://scripts/Vision.gdshader" id="12_u5foi"]
 [ext_resource type="Script" path="res://scripts/Vision.gd" id="13_g0a1h"]
 
-[sub_resource type="StyleBoxEmpty" id="1"]
-
 [sub_resource type="StyleBoxEmpty" id="2"]
+
+[sub_resource type="StyleBoxEmpty" id="1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_soewb"]
 shader = ExtResource( "12_u5foi" )
-shader_param/positions = null
-shader_param/radars = null
-shader_param/visuals = null
-shader_param/global_transform = null
-shader_param/radar_falloff = null
-shader_param/see_colorll = null
 shader_param/array_length = null
+shader_param/global_transform = null
+shader_param/positions = null
+shader_param/radar_falloff = null
+shader_param/radars = null
+shader_param/see_colorll = null
+shader_param/visuals = null
 
 [node name="World" type="Node2D"]
 light_mask = 2
@@ -82,7 +82,6 @@ texture = ExtResource( "5_7esg7" )
 
 [node name="FreeCamera" type="Camera2D" parent="."]
 current = true
-zoom = Vector2(5, 5)
 script = ExtResource( "2" )
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -96,120 +95,90 @@ offset_right = 800.0
 theme_override_font_sizes/font_size = 16
 text = "Bottom Text"
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CLI" type="LineEdit" parent="UI"]
-offset_left = 8.0
-offset_top = 36.0
-offset_right = 68.0
-offset_bottom = 59.0
-theme_override_styles/focus = SubResource( "1" )
+offset_left = 43.0
+offset_top = 26.0
+offset_right = 103.0
+offset_bottom = 49.0
 theme_override_styles/normal = SubResource( "2" )
+theme_override_styles/focus = SubResource( "1" )
 shortcut_keys_enabled = false
 selecting_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Bars" type="Control" parent="UI"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 5.0
-offset_top = -45.0
+offset_left = 10.0
+offset_top = -157.0
+offset_right = 10.0
+offset_bottom = -112.0
 script = ExtResource( "6_onlvc" )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="HP" type="Node2D" parent="UI/Bars"]
 
 [node name="Label" type="Label" parent="UI/Bars/HP"]
-offset_left = 5.0
-offset_right = 25.0
-offset_bottom = 23.0
+offset_top = 8.0
+offset_right = 20.0
+offset_bottom = 31.0
 theme_override_font_sizes/font_size = 14
 text = "HP
 "
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Bar" type="TextureProgressBar" parent="UI/Bars/HP"]
 anchor_right = 500.0
 offset_left = 30.0
 offset_right = 269.0
 offset_bottom = 39.0
-rect_scale = Vector2(0.5, 0.5)
 step = 0.0
 value = 50.0
 texture_under = ExtResource( "6_1eth7" )
 texture_progress = ExtResource( "7_x0y7u" )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="EW" type="Node2D" parent="UI/Bars"]
-position = Vector2(0, 20)
+position = Vector2(0, 40)
 
 [node name="Label" type="Label" parent="UI/Bars/EW"]
-offset_left = 5.0
-offset_right = 30.0
-offset_bottom = 23.0
+offset_top = 8.0
+offset_right = 25.0
+offset_bottom = 31.0
 theme_override_font_sizes/font_size = 14
 text = "EW
 "
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Bar" type="TextureProgressBar" parent="UI/Bars/EW"]
 anchor_right = 500.0
 offset_left = 30.0
 offset_right = 269.0
 offset_bottom = 39.0
-rect_scale = Vector2(0.5, 0.5)
 step = 0.0
 value = 30.0
 texture_under = ExtResource( "6_1eth7" )
 texture_progress = ExtResource( "8_75t2l" )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="FL" type="Node2D" parent="UI/Bars"]
-position = Vector2(159, 0)
+position = Vector2(0, 80)
 
 [node name="Label" type="Label" parent="UI/Bars/FL"]
-offset_top = -19.0
+offset_top = 8.0
 offset_right = 22.0
-offset_bottom = 4.0
+offset_bottom = 31.0
 theme_override_font_sizes/font_size = 14
 text = "FL
 "
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Bar" type="TextureProgressBar" parent="UI/Bars/FL"]
 anchor_right = 500.0
-offset_left = -2.0
-offset_top = 40.0
-offset_right = 246.0
-offset_bottom = 80.0
-rect_rotation = -1.5708
-rect_scale = Vector2(0.16, 0.5)
+offset_left = 30.0
+offset_right = 278.0
+offset_bottom = 40.0
 step = 0.0
 value = 80.0
 texture_under = ExtResource( "6_1eth7" )
 texture_progress = ExtResource( "9_4pcll" )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -100
@@ -225,6 +194,3 @@ offset_right = 11182.0
 offset_bottom = 10937.0
 color = Color(0.6, 0.6, 0.6, 1)
 script = ExtResource( "13_g0a1h" )
-__meta__ = {
-"_edit_use_anchors_": false
-}

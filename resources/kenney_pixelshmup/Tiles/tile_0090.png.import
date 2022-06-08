@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
-uid="uid://bfw2a3jlvvqvb"
-path="res://.godot/imported/tile_0090.png-3de0f1afe8e7b16df43814b852c018eb.stex"
+type="CompressedTexture2D"
+uid="uid://brcaayowvkgrx"
+path="res://.godot/imported/tile_0090.png-3de0f1afe8e7b16df43814b852c018eb.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://resources/kenney_pixelshmup/Tiles/tile_0090.png"
-dest_files=["res://.godot/imported/tile_0090.png-3de0f1afe8e7b16df43814b852c018eb.stex"]
+dest_files=["res://.godot/imported/tile_0090.png-3de0f1afe8e7b16df43814b852c018eb.ctex"]
 
 [params]
 
@@ -21,7 +21,6 @@ compress/hdr_compression=1
 compress/bptc_ldr=0
 compress/normal_map=0
 compress/channel_pack=0
-compress/streamed=false
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
@@ -29,7 +28,7 @@ roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
-process/HDR_as_SRGB=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0

@@ -4,7 +4,7 @@ extends Node2D
 
 const ZOOM_SPEED = 50
 const MIN_ZOOM = 0.1
-const MAX_ZOOM = 20 # higher zoom = more zoomed out
+const MAX_ZOOM = 5 # higher zoom = more zoomed in
 const PAN_SPEED = 100
 
 var cli_activated = false
