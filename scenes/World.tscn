@@ -43,6 +43,7 @@ evasive_r_rate_cap = 90.0
 radar_strength = 1.5
 
 [node name="PlayerCamera" type="Camera2D" parent="Units/Player"]
+smoothing_speed = 1.0
 script = ExtResource( "1" )
 
 [node name="Gun" parent="Units/Player" instance=ExtResource( "5" )]
@@ -82,6 +83,8 @@ texture = ExtResource( "5_7esg7" )
 
 [node name="FreeCamera" type="Camera2D" parent="."]
 current = true
+zoom = Vector2(0.25, 0.25)
+smoothing_speed = 1.0
 script = ExtResource( "2" )
 
 [node name="UI" type="CanvasLayer" parent="."]

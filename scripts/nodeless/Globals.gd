@@ -2,10 +2,15 @@
 
 extends Node
 
-const ewar_regen_mult = 1.0
-const radar_falloff = 0.002 # in loss per pixel
-const max_radar_MTTH = 30
-const min_radar_MTTH = 5
+const ZOOM_SPEED = 50
+const MIN_ZOOM = 0.25 # lower zoom = more zoomed in
+const MAX_ZOOM = 1 
+const PAN_SPEED = 100
+
+const EWAR_REGEN_MULT = 1.0
+const RADAR_FALLOFF = 0.002 # in loss per pixel
+const MAX_RADAR_MTTH = 30
+const MIN_RADAR_MTTH = 5
 
 @onready var pfps = ProjectSettings.get_setting("physics/common/physics_fps")
 @onready var pdelta = 1.0/pfps

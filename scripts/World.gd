@@ -2,17 +2,14 @@
 
 extends Node2D
 
-const ZOOM_SPEED = 50
-const MIN_ZOOM = 0.1
-const MAX_ZOOM = 5 # higher zoom = more zoomed in
-const PAN_SPEED = 100
+
 
 var cli_activated = false
 @onready var G = $"/root/Globals"
 
 func camera_input(delta, c):
-	var pan = PAN_SPEED * c.zoom.x * delta
-	var zoom = ZOOM_SPEED * delta
+	var pan = G.PAN_SPEED * c.zoom.x * delta
+	var zoom = G.ZOOM_SPEED * delta
 	if(c != G.player_camera):
 		if Input.is_action_pressed("pan_left"):
 			c.position.x -= pan
@@ -22,14 +19,15 @@ func camera_input(delta, c):
 			c.position.y -= pan
 		if Input.is_action_pressed("pan_down"):
 			c.position.y += pan
-	if Input.is_action_just_released('zoom_out'):
-		_zoom(zoom, c)
 	if Input.is_action_just_released('zoom_in'):
+		_zoom(zoom, c)
+	if Input.is_action_just_released('zoom_out'):
 		_zoom(-zoom, c)
 
 func _zoom(i, c):
-	c.zoom.x = clamp(c.zoom.x + i, MIN_ZOOM, MAX_ZOOM)
-	c.zoom.y = clamp(c.zoom.y + i, MIN_ZOOM, MAX_ZOOM)
+	c.zoom.x = clamp(c.zoom.x + i, G.MIN_ZOOM, G.MAX_ZOOM)
+	c.zoom.y = clamp(c.zoom.y + i, G.MIN_ZOOM, G.MAX_ZOOM)
+	
 
 func _process(delta):
 	var c = G.current_camera

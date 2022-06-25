@@ -208,7 +208,7 @@ func _physics_process(delta):
 	if(evasive_action):
 		ewar = max(ewar - delta, 0)
 	else:
-		ewar = min(ewar + delta * G.ewar_regen_mult, max_ewar)
+		ewar = min(ewar + delta * G.EWAR_REGEN_MULT, max_ewar)
 	
 	var move = calculate_movement(delta)
 		
@@ -385,8 +385,8 @@ func chance_to_see(enemy, delta):
 	if (dist <= visual_range):
 		return 1.0
 	
-	var strength = clamp((radar_strength - (dist * G.radar_falloff)), 0.0, 1.0)
-	return G.MTTH_to_chance(lerp(G.max_radar_MTTH, G.min_radar_MTTH, strength), delta)
+	var strength = clamp((radar_strength - (dist * G.RADAR_FALLOFF)), 0.0, 1.0)
+	return G.MTTH_to_chance(lerp(G.MAX_RADAR_MTTH, G.MIN_RADAR_MTTH, strength), delta)
 	
 func is_visible_by_team(vision_team):
 	return true if (vision_team == team or vision_team == -1 or is_decoy) \
@@ -410,10 +410,10 @@ func calculate_movement(delta):
 	var rot = r_rate * roll * delta
 	var orbit_radius = calc_orbit_radius(roll)
 	if speed != 0 and roll == 1 or roll == -1:
-		print(orbit_radius)
+#		print(orbit_radius)
 		var orbit = to_global(get_orbit(roll))
 		var angle_add = 2.0 * PI * roll * move / pce.r_circumference
-		print(angle_add)
+#		print(angle_add)
 		var current_angle = (global_position - orbit).angle()
 #		var current_pos = orbit + Vector2.RIGHT.rotated(current_angle) * orbit_radius
 		var final_angle = current_angle + angle_add

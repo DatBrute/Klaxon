@@ -12,7 +12,7 @@ func _ready():
 		visuals.append(0.0)
 		radars.append(0.0)
 	material.set_shader_param("global_transform", get_global_transform())
-	material.set_shader_param("radar_falloff", G.radar_falloff)
+	material.set_shader_param("RADAR_FALLOFF", G.RADAR_FALLOFF)
 
 func _process(_delta):
 	var team = G.client_vision_team

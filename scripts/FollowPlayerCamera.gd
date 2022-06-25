@@ -1,10 +1,14 @@
 extends Camera2D
 
+@onready var G = $"/root/Globals"
+
 func _ready():
-	$"/root/Globals".player_camera = self
+	zoom.x = G.MIN_ZOOM
+	zoom.y = G.MIN_ZOOM
+	G.player_camera = self
 	if self.current:
-		$"/root/Globals".current_camera = self
+		G.current_camera = self
 
 func _process(_delta):
 	if self.current:
-		$"/root/Globals".current_camera = self
+		G.current_camera = self
