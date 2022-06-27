@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dp5ewu1llko8p"]
 
-[ext_resource type="Texture2D" uid="uid://w8lfdwpfaw8e" path="res://resources/gui/energy_bar_bg.png" id="1_1qvva"]
-[ext_resource type="Texture2D" uid="uid://bpdl3r0owkev2" path="res://resources/gui/energy_bar_fill.png" id="2_rmgck"]
-[ext_resource type="Texture2D" uid="uid://dwe58wovrfsbo" path="res://resources/gui/lifebar_bg.png" id="3_oshdp"]
-[ext_resource type="Texture2D" uid="uid://vwgjceiligsj" path="res://resources/gui/lifebar_fill.png" id="4_s6vot"]
+[ext_resource type="Texture2D" uid="uid://bu87y8sj3pdh4" path="res://resources/gui/energy_bar_bg.png" id="1_1qvva"]
+[ext_resource type="Texture2D" uid="uid://etgqns8sumvn" path="res://resources/gui/energy_bar_fill.png" id="2_rmgck"]
+[ext_resource type="Texture2D" uid="uid://dcps73jx52gy8" path="res://resources/gui/lifebar_bg.png" id="3_oshdp"]
+[ext_resource type="Texture2D" uid="uid://djfgnsxdvjfuv" path="res://resources/gui/lifebar_fill.png" id="4_s6vot"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -15,9 +15,6 @@ offset_bottom = 88.0
 value = 50.0
 texture_under = ExtResource( "1_1qvva" )
 texture_progress = ExtResource( "2_rmgck" )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureProgressBar2" type="TextureProgressBar" parent="."]
 offset_left = 3.0
@@ -27,6 +24,3 @@ offset_bottom = 125.0
 value = 50.0
 texture_under = ExtResource( "3_oshdp" )
 texture_progress = ExtResource( "4_s6vot" )
-__meta__ = {
-"_edit_use_anchors_": false
-}

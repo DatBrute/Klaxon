@@ -20,12 +20,11 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_soewb"]
 shader = ExtResource( "12_u5foi" )
-shader_param/array_length = null
+shader_param/RADAR_FALLOFF = null
+shader_param/array_length = 0
 shader_param/global_transform = null
 shader_param/positions = null
-shader_param/radar_falloff = null
 shader_param/radars = null
-shader_param/see_colorll = null
 shader_param/visuals = null
 
 [node name="World" type="Node2D"]
@@ -187,7 +186,7 @@ texture_progress = ExtResource( "9_4pcll" )
 layer = -100
 follow_viewport_enable = true
 
-[node name="ColorRect" type="ColorRect" parent="Background"]
+[node name="Vision" type="ColorRect" parent="Background"]
 show_behind_parent = true
 light_mask = 2
 material = SubResource( "ShaderMaterial_soewb" )
@@ -195,5 +194,5 @@ offset_left = -8818.0
 offset_top = -9063.0
 offset_right = 11182.0
 offset_bottom = 10937.0
-color = Color(0.6, 0.6, 0.6, 1)
+color = Color(0.5, 0.5, 0.5, 1)
 script = ExtResource( "13_g0a1h" )

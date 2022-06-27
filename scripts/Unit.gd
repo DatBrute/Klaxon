@@ -221,7 +221,7 @@ func _physics_process(delta):
 		fuel = fuel - min(speed*delta, fuel)
 		assert(fuel >= 0, "Remaining fuel must be positive at all times")
 		if fuel == 0 or (targets_in_explosion_range().size() > 0 and auto_detonate):
-			die(auto_detonate)
+			prepare_to_die(auto_detonate)
 			return
 	
 	
@@ -320,7 +320,7 @@ func calc_orbit_radius(_roll = roll):
 
 ## SECTION DEATH
 
-func die(explode = true):
+func prepare_to_die(explode = true):
 	if controller == Controller.PLAYER:
 		$"/root/World/UI/BottomText".text = "You are dead."
 	if explode:
@@ -345,8 +345,10 @@ func die(explode = true):
 		for x in target_collision_tags:
 			set_collision_mask_value(x, false)
 	else:
-		queue_free()
-	
+		finally_die()
+
+func finally_die():
+	queue_free()
 
 # targets in range of the explosion triggering on unit's death
 func targets_in_explosion_range():
@@ -357,7 +359,7 @@ func targets_in_explosion_range():
 	return ret
 
 func _on_DeathAnim_animation_finished():
-	queue_free()
+	finally_die()
 	
 
 
@@ -373,7 +375,7 @@ func update_tracked_enemies(delta):
 		if(enemy.team != team and not (enemy in tracked_enemies)):
 			if(randf() <= chance_to_see(enemy, delta)):
 				if(enemy.is_decoy):
-					enemy.die(false)
+					enemy.prepare_to_die(false)
 				else:
 					tracked_enemies.append(enemy)
 					enemy.tracking_enemies.append(self)

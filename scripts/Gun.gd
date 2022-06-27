@@ -89,7 +89,7 @@ func does_ai_want_to_fire():
 func fire(delta):
 	current_ammo -= 1
 	current_clip_reload = 0
-	var only_child = self.get_children()[0]
+	var only_child = self.get_child(0)
 	var instance = only_child.create_instance()
 	instance.transform = self.global_transform
 	self.remove_child(instance)
