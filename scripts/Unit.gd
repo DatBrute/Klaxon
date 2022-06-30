@@ -215,7 +215,7 @@ func _physics_process(delta):
 	global_position = move[0]
 	rotation += move[1]
 	
-	update_tracked_enemies(delta)
+#	update_tracked_enemies(delta)
 	
 	if(max_fuel >= 0):
 		fuel = fuel - min(speed*delta, fuel)
@@ -242,8 +242,8 @@ func _process(_delta):
 	update()
 
 func _draw():
-	if not is_visible_by_team(G.client_vision_team):
-		return
+#	if not is_visible_by_team(G.client_vision_team):
+#		return
 #	if(draw_collision and collision_draw_points.size() > 0):
 #		var to_draw = collision_draw_points + PackedVector2Array([collision_draw_points[0]])
 #		draw_polyline(to_draw, collision_line_color, collision_line_width)
@@ -363,36 +363,36 @@ func _on_DeathAnim_animation_finished():
 	
 
 
-## SECTION VISION
-
-func update_tracked_enemies(delta):
-	for enemy in tracked_enemies:
-		if chance_to_see(enemy, delta) == 0:
-			tracked_enemies.erase(enemy)
-			enemy.tracking_enemies.erase(self)
-	var units =  get_tree().get_nodes_in_group("Unit")
-	for enemy in units:
-		if(enemy.team != team and not (enemy in tracked_enemies)):
-			if(randf() <= chance_to_see(enemy, delta)):
-				if(enemy.is_decoy):
-					enemy.prepare_to_die(false)
-				else:
-					tracked_enemies.append(enemy)
-					enemy.tracking_enemies.append(self)
-
-
-func chance_to_see(enemy, delta):
-	var dist = enemy.global_position.distance_to(global_position)
-
-	if (dist <= visual_range):
-		return 1.0
-	
-	var strength = clamp((radar_strength - (dist * G.RADAR_FALLOFF)), 0.0, 1.0)
-	return G.MTTH_to_chance(lerp(G.MAX_RADAR_MTTH, G.MIN_RADAR_MTTH, strength), delta)
-	
-func is_visible_by_team(vision_team):
-	return true if (vision_team == team or vision_team == -1 or is_decoy) \
-		else (self in G.visible_units[vision_team])
+### SECTION VISION
+#
+#func update_tracked_enemies(delta):
+#	for enemy in tracked_enemies:
+#		if chance_to_see(enemy, delta) == 0:
+#			tracked_enemies.erase(enemy)
+#			enemy.tracking_enemies.erase(self)
+#	var units =  get_tree().get_nodes_in_group("Unit")
+#	for enemy in units:
+#		if(enemy.team != team and not (enemy in tracked_enemies)):
+#			if(randf() <= chance_to_see(enemy, delta)):
+#				if(enemy.is_decoy):
+#					enemy.prepare_to_die(false)
+#				else:
+#					tracked_enemies.append(enemy)
+#					enemy.tracking_enemies.append(self)
+#
+#
+#func chance_to_see(enemy, delta):
+#	var dist = enemy.global_position.distance_to(global_position)
+#
+#	if (dist <= visual_range):
+#		return 1.0
+#
+#	var strength = clamp((radar_strength - (dist * G.RADAR_FALLOFF)), 0.0, 1.0)
+#	return G.MTTH_to_chance(lerp(G.MAX_RADAR_MTTH, G.MIN_RADAR_MTTH, strength), delta)
+#
+#func is_visible_by_team(vision_team):
+#	return true if (vision_team == team or vision_team == -1 or is_decoy) \
+#		else (self in G.visible_units[vision_team])
 	
 
 ## SECTION AI
