@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cicnpcq7sdtp"]
+[gd_scene load_steps=14 format=3 uid="uid://cicnpcq7sdtp"]
 
 [ext_resource type="Script" path="res://scripts/FollowPlayerCamera.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/FreeCamera.gd" id="2"]
@@ -11,21 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://chj47p2kjs5su" path="res://resources/gui/energy_bar_green.png" id="7_x0y7u"]
 [ext_resource type="Texture2D" uid="uid://j7b5lu4bo5n" path="res://resources/gui/energy_bar_azure.png" id="8_75t2l"]
 [ext_resource type="Texture2D" uid="uid://db3sxsyrdqqb6" path="res://resources/gui/energy_bar_brown.png" id="9_4pcll"]
-[ext_resource type="Shader" path="res://scripts/Vision.gdshader" id="12_u5foi"]
-[ext_resource type="Script" path="res://scripts/Vision.gd" id="13_g0a1h"]
 
 [sub_resource type="StyleBoxEmpty" id="2"]
 
 [sub_resource type="StyleBoxEmpty" id="1"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_soewb"]
-shader = ExtResource( "12_u5foi" )
-shader_param/RADAR_FALLOFF = null
-shader_param/array_length = 0
-shader_param/global_transform = null
-shader_param/positions = null
-shader_param/radars = null
-shader_param/visuals = null
 
 [node name="World" type="Node2D"]
 light_mask = 2
@@ -189,10 +178,8 @@ follow_viewport_enable = true
 [node name="Vision" type="ColorRect" parent="Background"]
 show_behind_parent = true
 light_mask = 2
-material = SubResource( "ShaderMaterial_soewb" )
 offset_left = -8818.0
 offset_top = -9063.0
 offset_right = 11182.0
 offset_bottom = 10937.0
-color = Color(0.5, 0.5, 0.5, 1)
-script = ExtResource( "13_g0a1h" )
+color = Color(0.501961, 0.501961, 0.501961, 1)
